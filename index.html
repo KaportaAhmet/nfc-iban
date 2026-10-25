@@ -63,9 +63,17 @@
             object-fit: cover;
         }
 
-        .title {
+        .isletme-title {
             font-size: 22px;
             font-weight: 700;
+            margin-bottom: 4px;
+            color: #38bdf8;
+            display: none;
+        }
+
+        .title {
+            font-size: 18px;
+            font-weight: 600;
             margin-bottom: 4px;
             color: var(--text-main);
         }
@@ -169,7 +177,8 @@
 
     <div class="container">
         <div class="logo-box" id="logoBox">🏪</div>
-        <h1 class="title" id="name">İşletme / Hesap Sahibi</h1>
+        <h1 class="isletme-title" id="isletme">İşletme Adı</h1>
+        <h2 class="title" id="name">Hesap Sahibi</h2>
         <p class="subtitle" id="bank">Banka Hesabı</p>
 
         <div class="card">
@@ -181,7 +190,7 @@
         </div>
 
         <button class="btn" id="copyBtn" onclick="copyIban()">
-            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 00-2 2z"></path></svg>
             IBAN'ı Kopyala
         </button>
 
@@ -197,11 +206,18 @@
     <script>
         const params = new URLSearchParams(window.location.search);
         
-        const isim = params.get('isim') || 'İşletme Adı Belirtilmedi';
+        const isletme = params.get('isletme');
+        const isim = params.get('isim') || 'Hesap Sahibi Belirtilmedi';
         const iban = params.get('iban') || 'IBAN Bulunamadı';
         const banka = params.get('banka') || 'Banka Belirtilmedi';
         const logo = params.get('logo');
         const telefon = params.get('telefon');
+
+        if (isletme) {
+            const isletmeEl = document.getElementById('isletme');
+            isletmeEl.textContent = isletme;
+            isletmeEl.style.display = 'block';
+        }
 
         document.getElementById('name').textContent = isim;
         document.getElementById('iban').textContent = iban;
